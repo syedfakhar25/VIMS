@@ -13,7 +13,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css">
+<!--<link href="{{asset('https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css">-->
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -24,6 +24,17 @@
 
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables library -->
+
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+
+
 </head>
 
 <body id="page-top">
@@ -57,17 +68,17 @@
                 <span>Manage Vehicles</span></a>
         </li>
         @if(Auth::user()->user_type == 'admin')
-        <li class="nav-item active">
-            <a href="{{route('department.index')}}" class="nav-link" href="index.html">
-                <i class="fas fa-fw fa-building"></i>
-                <span>Manage Departments</span></a>
-        </li>
+            <li class="nav-item active">
+                <a href="{{route('department.index')}}" class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-building"></i>
+                    <span>Manage Departments</span></a>
+            </li>
 
-        {{--<li class="nav-item active">
-            <a href="{{route('reports.index')}}" class="nav-link" href="index.html">
-                <i class="fas fa-fw fa-book-reader"></i>
-                <span>Reports</span></a>
-        </li>--}}
+            {{--<li class="nav-item active">
+                <a href="{{route('reports.index')}}" class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-book-reader"></i>
+                    <span>Reports</span></a>
+            </li>--}}
         @endif
 
         <li class="nav-item active">
@@ -103,20 +114,20 @@
                     <b>Vehicle Management System GoAJ&K</b>
                 </div>
 
-               {{-- <form
-                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>--}}
+            {{-- <form
+                 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                 <div class="input-group">
+                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            aria-label="Search" aria-describedby="basic-addon2">
+                     <div class="input-group-append">
+                         <button class="btn btn-primary" type="button">
+                             <i class="fas fa-search fa-sm"></i>
+                         </button>
+                     </div>
+                 </div>
+             </form>--}}
 
-                <!-- Topbar Navbar -->
+            <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
                     <!-- Nav Item - User Information -->
@@ -138,11 +149,11 @@
                             <a class="dropdown-item" href="#">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                             this.closest('form').submit(); " role="button">
-                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            LogOut
-                                        </a>
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        LogOut
+                                    </a>
                                 </form>
                             </a>
                         </div>
@@ -213,7 +224,6 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 
 
 {{--<!-- Custom scripts for all pages-->

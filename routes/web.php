@@ -24,6 +24,8 @@ Route::get('/', function () {
         return redirect()->route('login');
     }
 });
+// url to show vehicle info publicly through QR code
+Route::get('/vehicle-url/{id}', [\App\Http\Controllers\VehicleController::class, 'vehicleUrlInfo'])->name('vehicle-url');
 
 Route::get('/vms_code', [\App\Http\Controllers\DashboardController::class, 'vCode'])->name('vms_code');
 
@@ -53,6 +55,7 @@ Route::middleware([
     Route::get('/vehicle_import', [\App\Http\Controllers\VehicleController::class, 'importVehicle'])->name('vehicle_import');
     Route::post('/add_import_vehicle', [\App\Http\Controllers\VehicleController::class, 'addImportedVehicle'])->name('add_import_vehicle');
     Route::get('/print-sticker/{id}', [\App\Http\Controllers\VehicleController::class, 'printSticker'])->name('print-sticker');
+
     //departments crud
     Route::resource('department', \App\Http\Controllers\DepartmentsController::class);
 

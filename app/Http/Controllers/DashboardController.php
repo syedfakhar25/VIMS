@@ -76,6 +76,11 @@ class DashboardController extends Controller
                     ->where('reg_no','like','APF%')
                     ->where('department_id', $department_id)
                     ->get();
+
+                //entitled
+                $entitle= Vehicle::where('entitle', 'Entitle')->where('department_id', $department_id)->count();
+                $not_entitle= Vehicle::where('entitle', 'Not Entitle')->where('department_id', $department_id)->count();
+                $entitle_transport_policy= Vehicle::where('entitle', 'Entitle but above transport policy')->where('department_id', $department_id)->count();
             }
             else{
                 $vehicles = Vehicle::all();
@@ -133,6 +138,11 @@ class DashboardController extends Controller
                 $non_registered_vehicles = DB::table('vehicles')
                     ->where('reg_no', 'like', 'APF%')
                     ->get();
+
+                //entitled
+                $entitle= Vehicle::where('entitle', 'Entitle')->count();
+                $not_entitle= Vehicle::where('entitle', 'Not Entitle')->count();
+                $entitle_transport_policy= Vehicle::where('entitle', 'Entitle but above transport policy')->count();
             }
 
 
@@ -161,7 +171,10 @@ class DashboardController extends Controller
                 'engine_power_greater_3000'=>$engine_power_greater_3000->count(),
                 'non_registered_vehicles'=>$non_registered_vehicles->count(),
                 'dep_name' => $dep_name,
-                'department_id' => $department_id
+                'department_id' => $department_id,
+                'entitle' => $entitle,
+                'not_entitle' => $not_entitle,
+                'entitle_transport_policy' => $entitle_transport_policy,
             ]);
         }
         elseif ($user->user_type == 'department_admin'){

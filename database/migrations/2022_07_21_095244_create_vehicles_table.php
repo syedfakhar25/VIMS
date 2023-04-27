@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('fuel_average')->nullable();
             $table->string('prev_reg_no')->nullable();
             $table->string('status')->nullable();
+            $table->string('entitle')->nullable();
 
             $table->timestamps();
         });

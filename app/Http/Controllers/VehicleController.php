@@ -42,7 +42,7 @@ class VehicleController extends Controller
            }
            elseif (isset($request->department_id)){
                 $vehicles = $vehicles->leftJoin('departments', 'vehicles.department_id', '=', 'departments.id')
-                    ->select('vehicles.id as id', 'vehicles.reg_no', 'vehicles.body_type','vehicles.vms_code',
+                    ->select('vehicles.id as id', 'vehicles.reg_no',  'vehicles.chassis_no', 'vehicles.body_type','vehicles.vms_code',
                             'vehicles.status', 'vehicles.engine_power', 'vehicles.model', 'departments.dep_name' , 'vehicles.allotee'
                     )
                     ->Where('departments.id', $request->department_id);
@@ -70,9 +70,10 @@ class VehicleController extends Controller
             $department = Department::where('user_id' , $user->id)->first();
             $vehicles = $vehicles->where('department_id', $department->id);
 
+
         }
         return view('vehicle.index')->with([
-            'vehicles' => $vehicles->paginate(50)->withQueryString(),
+            'vehicles' => $vehicles->get()/*->paginate(50)->withQueryString()*/,
             'count_vehicle' => $vehicles->count(),
             'departments'=> $departments
         ]);
@@ -302,10 +303,12 @@ class VehicleController extends Controller
             $reg_no= ($data[$i]['REGISTRATION NUMBER']);
             $dep_name= ($data[$i]['DEPARTMENT  NAME']);
             $allotee= ($data[$i]['ALLOTEE']);
+            $maker= ($data[$i]['MAKER']);
             $body_type= ($data[$i]['BODY TYPE']);
             $model= ($data[$i]['YEAR OF MODEL']);
             $engine_power= ($data[$i]['ENGINE POWER']);
             $colour= ($data[$i]['COLOUR']);
+            $engine_no= ($data[$i]['ENGINE NO']);
             $chassis_no= ($data[$i]['CHASSIS NO']);
             $type= ($data[$i]['ENGINE TYPE']);
             $allotted_by= ($data[$i]['ALLOTED BY']);
@@ -326,19 +329,22 @@ class VehicleController extends Controller
                 $department->user_id = 5;
                 $department->focal_person = '-';
                 $department->phone = '0000';
+                $department->short_name = NULL;
                 $department->save();
 
                 $dep_id = $department->id;
             }
 
             //check if record exists already
-            $check = Vehicle::where('reg_no' , $reg_no)->exists();
+            $check = Vehicle::where('chassis_no' , $chassis_no)->exists();
 
-            if($check == true && !empty($reg_no)){
-                $vehicle = Vehicle::where('reg_no',$reg_no)->first();
+            if($check == true && !empty($chassis_no)){
+                $vehicle = Vehicle::where('chassis_no',$chassis_no)->first();
                 $vehicle->allotee = $allotee ;
                 $vehicle->body_type = $body_type ;
                 $vehicle->model = $model ;
+                $vehicle->engine_no = $engine_no ;
+                $vehicle->maker = $maker ;
                 $vehicle->engine_power = $engine_power ;
                 $vehicle->colour = $colour ;
                 $vehicle->chassis_no = $chassis_no ;
@@ -360,6 +366,8 @@ class VehicleController extends Controller
                 $vehicle->dep_name = $dep_name ;
                 $vehicle->department_id = $dep_id ;
                 $vehicle->allotee = $allotee ;
+                $vehicle->engine_no = $engine_no ;
+                $vehicle->maker = $maker ;
                 $vehicle->body_type = $body_type ;
                 $vehicle->model = $model ;
                 $vehicle->engine_power = $engine_power ;
@@ -372,7 +380,6 @@ class VehicleController extends Controller
                 $vehicle->fuel_average = $fuel_average ;
                 $vehicle->prev_reg_no = $prev_reg_no ;
                 $vehicle->status = $status ;
-
                 $vehicle->save();
                 if(empty($reg_no)){
                     $vehicle->update([
@@ -390,16 +397,22 @@ class VehicleController extends Controller
 
     public function printSticker($id){
         $vehicle = Vehicle::find($id);
-
-        $vehicleInfoForQR = 'Reg No: '.''.$vehicle->reg_no . ', Model: ' . $vehicle->model
+        $vehilce_url = route('vehicle-url', $id);
+        /*$vehicleInfoForQR = 'Reg No: '.''.$vehicle->reg_no . ', Model: ' . $vehicle->model
                             .' VMS Code: '. $vehicle->vms_code
-                            .' Engine No: '. $vehicle->engine_no;
+                            .' Engine No: '. $vehicle->engine_no;*/
 
         //dd($qrCode);
         return view('vehicle.print-sticker' )->with([
                 'vehicle'=>$vehicle,
-                'vehicleInfoForQR' => $vehicleInfoForQR,
+                'vehicleInfoForQR' => $vehilce_url,
             ]
         );
+    }
+    public function vehicleUrlInfo($id){
+        $vehicle = Vehicle::find($id);
+      return view('vehicle.vehicleQRInfo')->with([
+          'vehicle'=> $vehicle
+      ]);
     }
 }

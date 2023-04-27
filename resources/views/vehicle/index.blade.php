@@ -18,15 +18,15 @@
             <hr width="100%">
             <form action="" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-md-2">
-                        <input type="search" name="reg_no" placeholder="Registraton No" class="form-control" value="">
+                    <!--<div class="col-md-2">
+                        <input type="search" id="reg_no_search" name="reg_no" placeholder="Registraton No" class="form-control" value="">
                     </div>
                     <div class="col-md-2">
                         <input type="search" name="chassis_no" placeholder="Chassis No" class="form-control">
                     </div>
                     <div class="col-md-2">
                         <input type="search" name="model" placeholder="Model" class="form-control">
-                    </div>
+                    </div>-->
                     <div class="col-md-2">
                         <style>
                             .dept{
@@ -42,18 +42,18 @@
                             @endif
                         </select>
                     </div>
-                    <div class="col-md-2">
+                <!-- <div class="col-md-2">
                         <select class="form-control" name="status">
                             @if(Auth::user()->user_type == 'admin')
-                                <option>Status</option>
-                                <option value="offroad">Off Road</option>
-                                <option value="onroad">On Road</option>
-                            @endif
-                        </select>
-                    </div>
-                    <div class="col-md-2">
+                    <option>Status</option>
+                    <option value="offroad">Off Road</option>
+                    <option value="onroad">On Road</option>
+@endif
+                    </select>
+                </div>-->
+                    <!--<div class="col-md-2">
                         <input type="search" name="body_type" placeholder="Body Type" class="form-control">
-                    </div>
+                    </div>-->
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-search fa-sm"></i>
@@ -73,7 +73,7 @@
                 </div>
             @endif
             <div class="table-responsive">
-                <table class="table table-bordered " {{--id="vehicle_datatable"--}} width="100%" cellspacing="0">
+                <table class="table table-bordered " id="vehicle_datatable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
                         <th>VMS ID</th>
@@ -109,7 +109,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $vehicles->withQueryString()->links() }}
+
             </div>
             {{--<div class="row">
                 <div class="col-md-12">{{ $vehicles->links() }}
@@ -117,23 +117,30 @@
             </div>--}}
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>-->
+    <!--<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>-->
     <script>
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
         });
         $(document).ready( function () {
-            $('#vehicle_datatable').dataTable(({
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy',
-                    {
-                        extend: 'excel',
-                    }
-                ]}))});
+            $.noConflict();
+            $('#vehicle_datatable').DataTable({
+                "paging": true,
+                "pageLength": 10,
+            })
+
+            // Add a search box to the DataTable
+            $('#reg_no_search').on('keyup', function() {
+                console.log($(this).val()); // Debugging output
+                console.log($('#vehicle_datatable')); // Debugging output
+
+                if ($.fn.DataTable.isDataTable('#vehicle_datatable')) {
+                    $('#vehicle_datatable').DataTable().search($(this).val()).draw();
+                }
+            });
+
+        });
 
     </script>
 @endsection
-
-

@@ -30,7 +30,8 @@ class Vehicle extends Model
         'fuel_average',
         'fuel_average',
         'prev_reg_no',
-        'status'
+        'status',
+        'entitle'
     ];
 
     public function department(){
