@@ -108,10 +108,17 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-12">
-                <label class="form-label" for="customFile">Remarks</label> <b style="color: red"><em>(Add reason why Auctionable or Off road)</em></b>
-                <textarea type="text" name="remarks" class="form-control" value=""></textarea>
+            <div class="col-md-4">
+                <label class="form-label" for="customFile">Entitlement</label>
+                <select class="form-control " name="entitle">
+                    <option>--Choose--</option>
+                    <option value="entitle">Entitle</option>
+                    <option value="not_entitle">Not Entitle</option>
+                    <option value="entitle_above_policy">Entitled but above transport policy</option>
+                </select>
             </div>
+
+
             {{--<div class="col-md-12">
                 <hr width="100%">
             </div>
@@ -127,6 +134,12 @@
                 <label class="form-label" for="customFile">Electronic File</label>
                 <input type="file" name="" class="form-control" value="" />
             </div>--}}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="form-label" for="customFile">Remarks</label> <b style="color: red"><em>(Add reason why Auctionable or Off road)</em></b>
+                <textarea type="text" name="remarks" class="form-control" value=""></textarea>
+            </div>
         </div>
         <div class="row">
             <hr width="100%">

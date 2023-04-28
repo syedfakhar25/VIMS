@@ -78,9 +78,9 @@ class DashboardController extends Controller
                     ->get();
 
                 //entitled
-                $entitle= Vehicle::where('entitle', 'Entitle')->where('department_id', $department_id)->count();
-                $not_entitle= Vehicle::where('entitle', 'Not Entitle')->where('department_id', $department_id)->count();
-                $entitle_transport_policy= Vehicle::where('entitle', 'Entitle but above transport policy')->where('department_id', $department_id)->count();
+                $entitle= Vehicle::where('entitle', 'entitle')->where('department_id', $department_id)->count();
+                $not_entitle= Vehicle::where('entitle', 'not_entitle')->where('department_id', $department_id)->count();
+                $entitle_transport_policy= Vehicle::where('entitle', 'entitle_above_policy')->where('department_id', $department_id)->count();
             }
             else{
                 $vehicles = Vehicle::all();
@@ -140,9 +140,9 @@ class DashboardController extends Controller
                     ->get();
 
                 //entitled
-                $entitle= Vehicle::where('entitle', 'Entitle')->count();
-                $not_entitle= Vehicle::where('entitle', 'Not Entitle')->count();
-                $entitle_transport_policy= Vehicle::where('entitle', 'Entitle but above transport policy')->count();
+                $entitle= Vehicle::where('entitle', 'entitle')->count();
+                $not_entitle= Vehicle::where('entitle', 'not_entitle')->count();
+                $entitle_transport_policy= Vehicle::where('entitle', 'entitle_above_policy')->count();
             }
 
 

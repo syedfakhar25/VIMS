@@ -25,7 +25,9 @@
                             @if(Auth::user()->user_type == 'admin')
                                 <option >--Choose--</option>
                                 @foreach($departments as $dep)
-                                    <option value="{{$dep->id}}" {{ $dep->id ==  $vehicle->department_id ? 'selected' : ''  }}>{{$dep->dep_name}}</option>
+                                    <option value="{{ $dep->id }}" {{ $dep->id == $vehicle->department_id ? 'selected' : '' }}>
+                                        {{ $dep->dep_name }}
+                                    </option>
                                 @endforeach
                             @elseif(Auth::user()->user_type == 'department_admin')
                                 <option value="{{$user_department->id}}">{{$user_department->dep_name}}</option>
@@ -103,10 +105,19 @@
                     <div class="col-md-4">
                         <label class="form-label" for="customFile">Status</label>
                         <select class="form-control" name="status">
-                            <option >--Choose--</option>
+                            <option>--Choose--</option>
                             @foreach($status_vehicles as $vs)
-                                <option value="{{$vs->status}}">{{$vs->status}}</option>
+                                <option value="{{$vs->status}}" @if($vehicle->status === $vs->status) selected @endif>{{$vs->status}}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="customFile">Entitlement</label>
+                        <select class="form-control " name="entitle">
+                            <option>--Choose--</option>
+                            <option value="entitle" @if($vehicle->entitle === 'entitle') selected @endif>Entitle</option>
+                            <option value="not_entitle" @if($vehicle->entitle === 'not_entitle') selected @endif>Not Entitle</option>
+                            <option value="entitle_above_policy" @if($vehicle->entitle === 'entitle_above_policy') selected @endif>Entitled but above transport policy</option>
                         </select>
                     </div>
                 </div>

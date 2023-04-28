@@ -62,6 +62,9 @@ class VehicleController extends Controller
            elseif (isset($request->model)){
                     $vehicles = $vehicles->where('vehicles.model', $request->model);
            }
+           elseif (isset($request->entitle)){
+                    $vehicles = $vehicles->where('vehicles.entitle', $request->entitle);
+           }
 
             $departments = Department::all();
         }
@@ -161,6 +164,7 @@ class VehicleController extends Controller
         $vehicle->fuel_average =$request->fuel_average ;
         $vehicle->prev_reg_no =$request->prev_reg_no ;
         $vehicle->status =$request->status ;
+        $vehicle->entitle =$request->entitle ;
 
         $vehicle->save();
         return  redirect()->route('vehicle.index')->with([
@@ -244,6 +248,7 @@ class VehicleController extends Controller
         $vehicle->fuel_average =$request->fuel_average ;
         $vehicle->prev_reg_no =$request->prev_reg_no ;
         $vehicle->status =$request->status ;
+        $vehicle->entitle =$request->entitle ;
 
         $vehicle->update();
         return  redirect()->route('vehicle.index')->with([

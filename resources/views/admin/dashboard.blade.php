@@ -89,51 +89,27 @@
         </div>
     </div>
     <div class="row" style="display:flex; justify-content: center">
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+        <div class="col-lg-3 mb-4">
+            <div class="card bg-gradient-success text-white shadow">
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                <a href="{{route('vehicle.index' , ['entitle'.'='.'Entitle', 'department_id'.'='.$department_id])}}">Entitled</a></div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$entitle}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-truck-moving fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
+                    <a style="color: white; font-weight: bold" href="{{route('vehicle.index' , ['entitle'.'='.'entitle', 'department_id'.'='.$department_id])}}">Entitled </a>
+                    <div class="text-white-100" style="font-size: 25px">{{$entitle}} &nbsp; <i class=" fa fa-car-side"></i> </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
+        <div class="col-lg-3 mb-4">
+            <div class="card bg-gradient-danger text-white shadow">
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                <a href="#">Not Entitled</a></div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$not_entitle}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-truck-moving fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
+                    <a style="color: white; font-weight: bold" href="{{route('vehicle.index' , ['entitle'.'='.'not_entitle', 'department_id'.'='.$department_id])}}"> Not Entitled</a>
+                    <div class="text-white-100" style="font-size: 25px">{{$not_entitle}} &nbsp; <i class="fa fa-car-crash"></i> </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
+        <div class="col-lg-3 mb-4">
+            <div class="card bg-gradient-info text-white shadow">
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                <a href="#">Entitled but above Transport Policy</a></div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$entitle_transport_policy}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-truck-moving fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
+                    <a style="color: white; font-weight: bold" href="{{route('vehicle.index' , ['entitle'.'='.'entitle_above_policy', 'department_id'.'='.$department_id])}}">above Transport Policy</a>
+                    <div class="text-white-100" style="font-size: 25px">{{$entitle_transport_policy}} &nbsp; <i class="fa fa-car-alt"></i> </div>
                 </div>
             </div>
         </div>
