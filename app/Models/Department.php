@@ -14,8 +14,19 @@ class Department extends Model
       'focal_person',
       'phone',
       'short_code',
-      'parent_id'
+      'parent_id',
+      'is_main_dep',
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo(Department::class, 'parent_id');
+    }
+
+    public function subDepartments()
+    {
+        return $this->hasMany(Department::class, 'parent_id');
+    }
 
     public function users(){
         return $this->hasOne(User::class, 'id');

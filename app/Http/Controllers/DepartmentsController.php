@@ -49,18 +49,18 @@ class DepartmentsController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
+        /*$user = new User();
         $user->name= $request->focal_person;
         $user->email = $request->email;
         $user->user_type = 'department_admin';
         $user->password = Hash::make('12345678');
-        $user->save();
+        $user->save();*/
        // dd($user);
         $department = new Department();
-        $department->user_id = $user->id;
+        $department->user_id = 5;
         $department->dep_name = $request->dep_name;
-        $department->focal_person = $request->focal_person;
-        $department->phone = $request->phone;
+        $department->focal_person = NULL;
+        $department->phone = NULL;
         $department->save();
 
         return redirect()->back()->with([
@@ -88,7 +88,9 @@ class DepartmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $department = Department::find($id);
+
+        return view('department.edit')->with(['department' =>$department]);
     }
 
     /**
@@ -100,7 +102,15 @@ class DepartmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $department = Department::find($id);
+        $department->parent_id = $request->parent_id;
+        $department->dep_name = $request->dep_name;
+        $department->is_main_dep = $request->is_main_dep;
+
+        $department->update();
+        return  redirect()->route('department.index')->with([
+            'success' => 'Department Updated Successfully'
+        ]);
     }
 
     /**

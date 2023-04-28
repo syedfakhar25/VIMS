@@ -38,7 +38,9 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 <a href="{{route('department.index')}}">Departments</a> </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$total_departments}}</div>
+                            @php $count_dep = \App\Models\Department::select('parent_id')->distinct()->where('parent_id','!=',0)->count('parent_id');
+                            @endphp
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$count_dep}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-school fa-2x text-gray-300"></i>
@@ -109,7 +111,7 @@
             <div class="card bg-gradient-info text-white shadow">
                 <div class="card-body">
                     <a style="color: white; font-weight: bold" href="{{route('vehicle.index' , ['entitle'.'='.'entitle_above_policy', 'department_id'.'='.$department_id])}}">above Transport Policy</a>
-                    <div class="text-white-100" style="font-size: 25px">{{$entitle_transport_policy}} &nbsp; <i class="fa fa-car-alt"></i> </div>
+                    <div class="text-white-100" style="font-size: 25px">{{$entitle_transport_policy}} &nbsp; <i class="fa fa-car-alt"></i>&nbsp;<i class="fa fa-arrow-up"></i> </div>
                 </div>
             </div>
         </div>

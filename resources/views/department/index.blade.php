@@ -39,7 +39,7 @@
                                         <label class="form-label" for="customFile">Short Name</label>
                                         <input type="text" name="short_name" class="form-control"  placeholder ="e.g; ITB" required/>
                                     </div>
-                                    <div class="col-md-6">
+                                    {{--<div class="col-md-6">
                                         <label class="form-label" for="customFile">Focal Person</label>
                                         <input type="text" name="focal_person" class="form-control"  required/>
                                     </div>
@@ -50,7 +50,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label" for="customFile">Phone #</label>
                                         <input type="text" name="phone" class="form-control"  required/>
-                                    </div>
+                                    </div>--}}
                                 </div>
                                 <div class="row">
                                     <hr width="100%">
@@ -78,6 +78,8 @@
                     <tr>
                         <th>S #</th>
                         <th>Name</th>
+                        <th>Parent Dept.</th>
+                        <th>Main Department?</th>
                         <th>Focal Person</th>
                         {{--<th>Email</th>--}}
                         <th>Phone #</th>
@@ -90,15 +92,24 @@
                         <tr>
                         <td>{{$count++}}</td>
                         <td><a href="{{route('dashboard',[ 'department_id' => $dep->id])}}">{{$dep->dep_name}}</a></td>
+                        <td>
+                            @php $parent = \App\Models\Department::find($dep->parent_id);@endphp
+                            @if($parent){{$parent->dep_name}}@endif
+                        </td>
+                        <td>@if($dep->is_main_dep) <b class="text-success">Yes</b>
+                            @else <b class="text-danger">No</b>
+                            @endif
+                        </td>
                         <td>{{$dep->focal_person}}</td>
                         {{--<td>{{$dep->users()->id}}</td>--}}
                         <td>{{$dep->phone}}</td>
-                        <td>
-                            <form action="{{ route('department.destroy',['department' => $dep->id]) }}" method="POST">
+                        <td colspan="2">
+                            {{--<form action="{{ route('department.destroy',['department' => $dep->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn"><i class="fas fa-trash" style="color: darkred"></i></button>
-                            </form>
+                            </form>--}}
+                            <a href="{{route('department.edit', $dep->id)}}"><i class="fas fa-edit" style="color: blue"></i></a>
                         </td>
                     </tr>
                     @endforeach

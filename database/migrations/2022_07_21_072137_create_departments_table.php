@@ -18,11 +18,17 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('dep_name');
             $table->string('focal_person');
-            $table->integer('parent_id');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('short_name');
             $table->string('phone');
+            $table->tinyInteger('is_main_dep');
 
             $table->timestamps();
+
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('departments')
+                ->onDelete('cascade');
         });
     }
 
