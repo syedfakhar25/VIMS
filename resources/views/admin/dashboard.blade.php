@@ -38,7 +38,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 <a href="{{route('department.index')}}">Departments</a> </div>
-                            @php $count_dep = \App\Models\Department::select('parent_id')->distinct()->where('parent_id','!=',0)->count('parent_id');
+                            @php $count_dep = \App\Models\Department::where('is_main_dep', 1)->count();
                             @endphp
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$count_dep}}</div>
                         </div>
