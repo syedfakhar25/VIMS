@@ -56,6 +56,7 @@ Route::middleware([
     Route::post('/add_import_vehicle', [\App\Http\Controllers\VehicleController::class, 'addImportedVehicle'])->name('add_import_vehicle');
     Route::get('/print-sticker/{id}', [\App\Http\Controllers\VehicleController::class, 'printSticker'])->name('print-sticker');
 
+
     //departments crud
     Route::resource('department', \App\Http\Controllers\DepartmentsController::class);
 

@@ -414,6 +414,7 @@ class VehicleController extends Controller
             ]
         );
     }
+
     public function vehicleUrlInfo($id){
         $vehicle = Vehicle::find($id);
       return view('vehicle.vehicleQRInfo')->with([
