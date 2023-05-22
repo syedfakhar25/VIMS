@@ -7,61 +7,76 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Vehicles
-                <a href="{{route('vehicle.create')}}" type="button" class="btn btn-success">
-                    &nbsp; <i class="fa fa-plus-circle"></i>&nbsp;Add
-                </a>
-                <a href="{{route('vehicle_import')}}" type="button" class="btn btn-danger">
-                    &nbsp; <i class="fa fa-file"></i>&nbsp;Import CSV
-                </a>
-            </h6>
-            <hr width="100%">
-            <form action="" enctype="multipart/form-data">
-                <div class="row">
-                    <!--<div class="col-md-2">
-                        <input type="search" id="reg_no_search" name="reg_no" placeholder="Registraton No" class="form-control" value="">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="search" name="chassis_no" placeholder="Chassis No" class="form-control">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="search" name="model" placeholder="Model" class="form-control">
-                    </div>-->
-                    <div class="col-md-2">
-                        <style>
-                            .dept{
-                                display: block!important;
-                            }
-                        </style>
-                        <select class="form-control <!--js-example-basic-single--> dept" name="department_id">
-                            @if(Auth::user()->user_type == 'admin')
-                                <option>Department</option>
-                                @foreach($departments as $dep)
-                                    <option value="{{$dep->id}}">{{$dep->dep_name}}</option>
-                                @endforeach
-                            @endif
-                        </select>
-                    </div>
-                <!-- <div class="col-md-2">
-                        <select class="form-control" name="status">
-                            @if(Auth::user()->user_type == 'admin')
-                    <option>Status</option>
-                    <option value="offroad">Off Road</option>
-                    <option value="onroad">On Road</option>
-@endif
-                    </select>
-                </div>-->
-                    <!--<div class="col-md-2">
-                        <input type="search" name="body_type" placeholder="Body Type" class="form-control">
-                    </div>-->
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
+            <div class="row">
 
+                <div class="col-sm-8">
+                    <h6 class="m-0 font-weight-bold text-primary">Vehicles
+                        <a href="{{route('vehicle.create')}}" type="button" class="btn btn-success">
+                            &nbsp; <i class="fa fa-plus-circle"></i>&nbsp;Add
+                        </a>
+                        <a href="{{route('vehicle_import')}}" type="button" class="btn btn-danger">
+                            &nbsp; <i class="fa fa-file"></i>&nbsp;Import CSV
+                        </a>
+                    </h6>
                 </div>
-            </form>
+                <form action="" class="col-sm-4" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <style>
+                                .dept{
+                                    display: block!important;
+                                }
+                            </style>
+                            <select id="department_search" class="form-control  dept" name="department_id">
+                                @if(Auth::user()->user_type == 'admin')
+                                    <option>Department</option>
+                                    @foreach($departments as $dep)
+                                        <option value="{{$dep->id}}">{{$dep->dep_name}}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <hr width="100%">
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="search" id="reg_no_search" name="reg_no" placeholder="Registration No" class="form-control" value="">
+                </div>
+                <div class="col-md-2">
+                    <input type="search" id="chassis_no_search" name="chassis_no" placeholder="Chassis No" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <input type="search"  id="model_no_search" name="model" placeholder="Model" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <input type="search" id="body_type" name="body_type" placeholder="Body Type" class="form-control">
+                </div>
+
+                <div class="col-md-2">
+                    <input type="search" id="status" name="status" placeholder="Status" class="form-control">
+                </div>
+
+                <!--<div class="col-md-2">-->
+                <!--      <select class="form-control" name="status" id="status">-->
+            <!--          @if(Auth::user()->user_type == 'admin')-->
+                <!--              <option>Status</option>-->
+                <!--              <option value="offroad">Off Road</option>-->
+                <!--              <option value="onroad">On Road</option>-->
+                <!--          @endif-->
+                <!--      </select>-->
+                <!--  </div>-->
+
+
+            </div>
+
             {{--<div class="col-md-2">
                 Total: {{$count_vehicle}}
             </div>--}}
@@ -76,10 +91,11 @@
                 <table class="table table-bordered " id="vehicle_datatable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>VMS ID</th>
+                        <!-- <th>VMS ID</th>-->
                         <th>Reg No.</th>
+                        <th>Chassis No.</th>
                         <th>Model</th>
-                        <th>Type</th>
+                        <th>Body Type</th>
                         <th>Status</th>
                         <th>Engine</th>
                         <th>Allottee</th>
@@ -92,8 +108,9 @@
 
                     @foreach($vehicles as $vehicle)
                         <tr>
-                            <td>{{$vehicle->vms_code}}</td>
+                        <!-- <td>{{$vehicle->vms_code}}</td>-->
                             <td>{{$vehicle->reg_no}}</td>
+                            <td>{{$vehicle->chassis_no}}</td>
                             <td>{{$vehicle->model}}</td>
                             <td>{{$vehicle->body_type}}</td>
                             <td>{{$vehicle->status}}</td>
@@ -121,7 +138,7 @@
     <!--<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>-->
     <script>
         $(document).ready(function() {
-            $('.js-example-basic-single').select2();
+            $('#department_search').select2();
         });
         $(document).ready( function () {
             $.noConflict();
@@ -129,18 +146,41 @@
                 "paging": true,
                 "pageLength": 10,
             })
-
-            // Add a search box to the DataTable
-            $('#reg_no_search').on('keyup', function() {
-                console.log($(this).val()); // Debugging output
-                console.log($('#vehicle_datatable')); // Debugging output
-
-                if ($.fn.DataTable.isDataTable('#vehicle_datatable')) {
-                    $('#vehicle_datatable').DataTable().search($(this).val()).draw();
-                }
-            });
-
         });
+
+
+
+        $('#reg_no_search').on('keyup', function() {
+            var searchValue = $(this).val();
+            var dataTable = $('#vehicle_datatable').DataTable();
+            dataTable.column(0).search(searchValue).draw();
+        });
+
+        $('#chassis_no_search').on('keyup', function() {
+            var searchValue = $(this).val();
+            var dataTable = $('#vehicle_datatable').DataTable();
+            dataTable.column(1).search(searchValue).draw();
+        });
+
+        $('#model_no_search').on('keyup', function() {
+            var searchValue = $(this).val();
+            var dataTable = $('#vehicle_datatable').DataTable();
+            dataTable.column(2).search(searchValue).draw();
+        });
+        $('#body_type').on('keyup', function() {
+            var searchValue = $(this).val();
+            var dataTable = $('#vehicle_datatable').DataTable();
+            dataTable.column(3).search(searchValue).draw();
+        });
+
+        $('#status').on('keyup', function() {
+            var searchValue = $(this).val();
+            var dataTable = $('#vehicle_datatable').DataTable();
+            dataTable.column(4).search(searchValue).draw();
+        });
+
 
     </script>
 @endsection
+
+

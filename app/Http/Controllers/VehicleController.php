@@ -33,25 +33,42 @@ class VehicleController extends Controller
         }
         $vehicles =DB::table('vehicles');
         if($user->user_type == 'admin'){
-           // dd($request->reg_no);
-            //dd($request->department_id);
            if($request->reg_no == 1 ){
                $vehicles = DB::table('vehicles')->where('vehicles.reg_no', NULL )
                ->orWhere('vehicles.reg_no', '' )
                ->orWhere('vehicles.reg_no', 'like','APF%' );
            }
            elseif (isset($request->department_id)){
-                $vehicles = $vehicles->leftJoin('departments', 'vehicles.department_id', '=', 'departments.id')
-                    ->select('vehicles.id as id', 'vehicles.reg_no',  'vehicles.chassis_no', 'vehicles.body_type','vehicles.vms_code',
-                            'vehicles.status', 'vehicles.engine_power', 'vehicles.model', 'departments.dep_name' , 'vehicles.allotee'
-                    )
-                    ->Where('departments.id', $request->department_id);
+               if($request->status){
+                   $vehicles = $vehicles->leftJoin('departments', 'vehicles.department_id', '=', 'departments.id')
+                       ->select('vehicles.id as id', 'vehicles.reg_no',  'vehicles.chassis_no', 'vehicles.body_type','vehicles.vms_code',
+                           'vehicles.status', 'vehicles.engine_power', 'vehicles.model', 'departments.dep_name' , 'vehicles.allotee'
+                       )
+                       ->Where('departments.id', $request->department_id)
+                   ->where('vehicles.status', $request->status);
+               }
+               elseif($request->entitle){
+                   $vehicles = $vehicles->leftJoin('departments', 'vehicles.department_id', '=', 'departments.id')
+                       ->select('vehicles.id as id', 'vehicles.reg_no',  'vehicles.chassis_no', 'vehicles.body_type','vehicles.vms_code',
+                           'vehicles.status', 'vehicles.engine_power', 'vehicles.model', 'departments.dep_name' , 'vehicles.allotee'
+                       )
+                       ->Where('departments.id', $request->department_id)
+                        ->where('vehicles.entitle', $request->entitle);
+               }else{
+                   $vehicles = $vehicles->leftJoin('departments', 'vehicles.department_id', '=', 'departments.id')
+                       ->select('vehicles.id as id', 'vehicles.reg_no',  'vehicles.chassis_no', 'vehicles.body_type','vehicles.vms_code',
+                           'vehicles.status', 'vehicles.engine_power', 'vehicles.model', 'departments.dep_name' , 'vehicles.allotee'
+                       )
+                       ->Where('departments.id', $request->department_id);
+               }
            }
            elseif (isset($request->chassis_no)){
                     $vehicles = $vehicles->where('vehicles.chassis_no', $request->chassis_no);
            }
+
            elseif (isset($request->status)){
                     $vehicles = $vehicles->where('vehicles.status', $request->status);
+
            }
            elseif (isset($request->reg_no)){
                     $vehicles = $vehicles->where('vehicles.reg_no', $request->reg_no);
@@ -402,7 +419,7 @@ class VehicleController extends Controller
 
     public function printSticker($id){
         $vehicle = Vehicle::find($id);
-        $vehilce_url = route('vehicle-url', $id);
+        $vehilce_url = route('vehicle-url', base64_encode($id));
         /*$vehicleInfoForQR = 'Reg No: '.''.$vehicle->reg_no . ', Model: ' . $vehicle->model
                             .' VMS Code: '. $vehicle->vms_code
                             .' Engine No: '. $vehicle->engine_no;*/
@@ -416,7 +433,7 @@ class VehicleController extends Controller
     }
 
     public function vehicleUrlInfo($id){
-        $vehicle = Vehicle::find($id);
+        $vehicle = Vehicle::find(base64_decode($id));
       return view('vehicle.vehicleQRInfo')->with([
           'vehicle'=> $vehicle
       ]);

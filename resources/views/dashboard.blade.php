@@ -13,3 +13,6 @@
         </div>
     </div>
 </x-app-layout>
+
+@if (!empty($employees->image)) {{ asset('uploads/employee/' . $employees->image) }} @elseif(strtolower($employees->gender) == 'female')
+    {{ asset('assets/img/female.png') }} @else {{ asset('assets/img/male.png') }} @endif

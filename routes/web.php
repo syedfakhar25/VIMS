@@ -25,7 +25,7 @@ Route::get('/', function () {
     }
 });
 // url to show vehicle info publicly through QR code
-Route::get('/vehicle-url/{id}', [\App\Http\Controllers\VehicleController::class, 'vehicleUrlInfo'])->name('vehicle-url');
+Route::get('/vehicle-url/{vehicle}', [\App\Http\Controllers\VehicleController::class, 'vehicleUrlInfo'])->name('vehicle-url');
 
 Route::get('/vms_code', [\App\Http\Controllers\DashboardController::class, 'vCode'])->name('vms_code');
 

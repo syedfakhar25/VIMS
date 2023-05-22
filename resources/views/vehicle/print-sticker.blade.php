@@ -1,13 +1,17 @@
 
    <body onload="window.print()">
    <style>
-       @media print{
-           .print-style{
-               margin: 0;
-               color: #000;
-               background-color: #fff;
+       @media print {
+           .print-style {
+               position: absolute;
+               top: 50%;
+               left: 15%;
+               transform: translate(-30%, -30%);
+               
+
            }
        }
+
    </style>
    <div class="" align="center" >
        @php

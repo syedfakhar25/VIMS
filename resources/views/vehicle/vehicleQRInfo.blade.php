@@ -1,12 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Azad Jammu & Kashmir VIMS</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
 
+        .card-body {
+            padding: 20px;
+        }
+
+        .row {
+            margin: 0 -15px;
+        }
+
+        .col-md-4 {
+            float: left;
+            width: 33.33%;
+            padding: 0 15px;
+        }
+
+        .v_heading{
+            color: #444;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        hr {
+            margin: 20px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .logo {
+            max-width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="row">
-            <style>
-                .v_heading{
-                    color: black;
-                }
-            </style>
+            <div class="col-md-12" align="center">
+                <img src="{{asset('main_logo.png')}}" alt="logo" class="logo">
+                <h3>Azad Jammu & Kashmir | Vehicle From VIMS</h3>
+            </div>
             <div class="col-md-4" align="center">
                 <b class="v_heading">Reg No:</b>&nbsp;@if($vehicle->reg_no) <em>{{$vehicle->reg_no}}</em>@endif
             </div>
