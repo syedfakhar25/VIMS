@@ -123,11 +123,11 @@
             <b> <h6><em>Vehicles by their Condition</em></h6></b>
         </div>--}}
     </div>
-    <div class="row">
+    <div class="row" align="center">
         @if($department_id == null)
-            <div class="col-md-12" align="center">
+            {{--<div class="col-md-12" align="center">
                 <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-            </div>
+            </div>--}}
            {{-- <div class="card bg-gradient-light col-md-6" align="center">
                 <canvas id="barChart" style="width:100%;max-width:600px"></canvas>
             </div>--}}
@@ -150,7 +150,7 @@
         </div>--}}
 
             @foreach($vehicles_condition as $i)
-                <div class="col-md-2 mt-2">
+                <div class="col-md-3 mt-2">
                     <div class="statusCard card border-info mx-sm-1 p-3">
                         <div class="text-info text-center mt-3">
                             <a href="{{URL::route('vehicle.index', ['status' => $i->status, 'department_id' => $department_id])}}"> <h6><b>{{$i->status}}</b></h6></a>
@@ -162,17 +162,23 @@
         @endif
 
     </div>
-
+    <div class="row mt-3">
+        @if($department_id == null)
+            <div class="col-md-12" align="center">
+                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            </div>
+        @endif
+    </div>
    {{-- vehicle body type graph--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <div class="row">
         <hr width="100%">
-        <div class="card bg-gradient-light col-md-6">
+        {{--<div class="card bg-gradient-light col-md-6">
             <canvas id="horizontalBar"></canvas>
         </div>
         <div class="col-md-6">
             <canvas id="yearGraph" ></canvas>
-        </div>
+        </div>--}}
 
     </div>
 

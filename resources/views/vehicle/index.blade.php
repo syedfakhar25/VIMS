@@ -82,6 +82,9 @@
             </div>--}}
         </div>
         <div class="card-body">
+            <div class="col-md-2 font-weight-bold text-danger">
+                <span id="total_count"></span>
+            </div>
             @if (session('success'))
                 <div class="alert alert-primary" role="alert">
                     {{ session('success') }}
@@ -92,7 +95,7 @@
                     <thead>
                     <tr>
                         <!-- <th>VMS ID</th>-->
-                        <th>Reg No.</th>
+                        <th>Reg No. </th>
                         <th>Chassis No.</th>
                         <th>Model</th>
                         <th>Body Type</th>
@@ -142,11 +145,27 @@
         });
         $(document).ready( function () {
             $.noConflict();
-            $('#vehicle_datatable').DataTable({
+           var table =  $('#vehicle_datatable').DataTable({
                 "paging": true,
                 "pageLength": 10,
+                "dom": 'Bfrtip', // Add the 'B' parameter to include buttons
+                "buttons": [
+                    {
+                        extend: 'excelHtml5', // Add the Excel button
+                        text: 'Export to Excel',
+                        className: 'btn btn-success',
+                        filename: 'vehicle_data', // Specify the filename for the exported file
+                    }
+                ]
             })
+            $('#total_count').text('Total: ' + table.rows().count());
+            // Listen for search event and update count
+            table.on('search.dt', function() {
+                $('#total_count').text('Total: ' + table.rows({ search: 'applied' }).count());
+            });
         });
+        // get count
+
 
 
 
